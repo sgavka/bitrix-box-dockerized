@@ -5,20 +5,26 @@ services:
   apache:
     build: ./apache
     ports:
-      - 80:80
+      - 81:80
+      - 9002:9000
     volumes:
       - ./www:/var/www/html
       - ./apache/date-timezone.conf:/etc/apache2/conf-enabled/date-timezone.conf
       - ./apache/encoding.conf:/etc/apache2/conf-enabled/encoding.conf
   mysql:
     image: "mysql:5.5"
+    volumes_from:
+        - apache
     volumes:
       - ./mysql/conf.d:/etc/mysql/conf.d
       - mysql:/var/lib/mysql
     ports:
-      - 3306:3306
+      - 3307:3306
     environment:
-      - MYSQL_ALLOW_EMPTY_PASSWORD=true
-      - MYSQL_USER=bitrix
-      - MYSQL_PASSWORD=bitrix
-      - MYSQL_DATABASE=bitrix
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      MYSQL_USER: bitrix
+      MYSQL_PASSWORD: bitrix
+      MYSQL_DATABASE: bitrix
+      XDEBUG_CONFIG: remote_host=172.18.0.1
+      PHP_XDEBUG_ENABLED: 1
+#      PHP_IDE_CONFIG: serverName=localhost
