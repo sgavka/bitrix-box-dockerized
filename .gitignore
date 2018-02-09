@@ -49,4 +49,5 @@ ehthumbs.db
 Thumbs.db
 
 # Project
-/www
+/www/*
+!/www/.gitkeep
