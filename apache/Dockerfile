@@ -10,7 +10,7 @@ RUN a2enmod rewrite
 RUN usermod -u 1000 www-data
 RUN groupmod -g 1000 www-data
 
-RUN yes | pecl install xdebug \
+RUN yes | pecl install xdebug-2.5.5 \
     && echo "zend_extension='$(find /usr/local/lib/php/extensions/ -name xdebug.so)'" > /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.idekey=PHPSTORM" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.default_enable=1" >> /usr/local/etc/php/conf.d/xdebug.ini \
